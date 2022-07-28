@@ -21,6 +21,8 @@ I started to dig into it more. I was able to shrink the database files and regai
 
 Running a simple query and looking at the records, it was clear something wasn't right. The records were duplicate XML entries containing nothing exciting. While I won't post a record here in the event it links to something larger, nearly all entries were created by the Azure_Service.
 
+## The resolution...
+
 Working with Microsoft, the recommendation was to delete logs in this table manually with a delete statement in SQL. I have gone a step further here and created a SQL job that automatically clears the logs  every two weeks just to keep on top of it. Microsoft verbally recognised that this was a bug in SCCM and are looking to report this internally, however at this stage I am yet to find anything online about the bug being recognised or reported by anyone else.
 
 A quick SQL query, just to delete logs from the SCCM_Audit table:
