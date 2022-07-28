@@ -5,9 +5,10 @@ tags: [Microsoft Intune, SCCM, Hybrid Management, Modern Workplace]
 ---
 
 I stumbled upon an interesting issue that we had to confer with Microsoft on this week.  
-I have discovered that the SCCM_Audit table inside of the ConfigMgr database, is repeatedly logging entries for the co-management configuration with Microsoft Intune. As you can imagine, this is not ideal and causes a massive bloat of the database. 
+The SCCM_Audit table inside of the ConfigMgr database, is repeatedly logging entries for the co-management configuration with Microsoft Intune. As you can imagine, this is not ideal and causes a massive bloat in the database. 
 
 ## Setting the scene...
+The environment this was found on and relates to is as follows:
 - PRIMARY filegroup consists of 4 x 6144 MB files.
 - SCCM is running in a co-management configuration.
 - Laptop builds, software deployment, driver deployment and management is all done via SCCM.
@@ -16,13 +17,11 @@ I have discovered that the SCCM_Audit table inside of the ConfigMgr database, is
 ## The issue...
 We were repeatedly receiving alerts from our monitoring platform that the PRIMARY filegroup was full, SCCM was also not allowing us to deploy new applications or driver packages and as such, people were starting to complain.
 
-I started to dig into it. I was able to shrink the database files and regain about 100MB in space but this would then be instantly eaten up by the time I got round to shrinking the next file. I started to look at what table was the largest and found that the SCCM_Audit table was almost 2GB in size with no signs of slowing down.
+I started to dig into it more. I was able to shrink the database files and regain about 100MB in space but this would then be instantly eaten up by the time I got round to shrinking the next file. I started to look at what table was the largest and found that the SCCM_Audit table was almost 2GB in size with no signs of slowing down so adding another .mdf file to the filegroup or expanding the current files in size, was not going to be a resolution.
 
-Running a simple query and looking at the records, it was clear something wasn't right. The records were duplicate XML entries that would be at random times of the day - almost like when it'd check in with MEM. As mentio
+Running a simple query and looking at the records, it was clear something wasn't right. The records were duplicate XML entries containing nothing exciting. While I won't post a record here in the event it links to something larger, nearly all entries were created by the Azure_Service.
 
-Working with Microsoft, the recommendation was to delete logs in this table manually with a delete statement in SQL. I have gone a step further here, I've created a SQL job that automatically clears the logs down every two weeks just to keep on top of it.
-
-Microsoft verbally recognised that this was a bug in SCCM and are looking to report this internally, however at this stage I am yet to find anything online about the bug being recognised.
+Working with Microsoft, the recommendation was to delete logs in this table manually with a delete statement in SQL. I have gone a step further here and created a SQL job that automatically clears the logs  every two weeks just to keep on top of it. Microsoft verbally recognised that this was a bug in SCCM and are looking to report this internally, however at this stage I am yet to find anything online about the bug being recognised or reported by anyone else.
 
 A quick SQL query, just to delete logs from the SCCM_Audit table:
 ```sql
