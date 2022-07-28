@@ -1,7 +1,7 @@
 ---
 layout: article
 title:  "Intune HWID Upload to Azure Storage Account"
-tags: [Autopilot, Intune, Microsoft Azure, PowerShell]
+tags: [Windows Autopilot, Microsoft Intune, Microsoft Azure, PowerShell]
 ---
 
 I have found myself in a situation where I have no record of HWIDs for existing Autopilot machines. The challenge I now face is that these devices are going to be moved to another tenant and there’s a lot of them.
