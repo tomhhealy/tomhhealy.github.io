@@ -4,7 +4,6 @@ title:  "Mail Enable Azure AD Guests"
 tags: [Microsoft Azure, Microsoft Exchange, Microsoft 365, PowerShell, Automation]
 ---
 
-## Background
 Mail-enabling a guest is as simple as logging into Exchange Online PowerShell, running a single command and voila, they appear in the GAL and allow you to email them like you would a regular user in the tenant.
 
 However this being said, the customer has 700+ guests in the tenant from other companies and organizations. Slowly running an individual command to mail-enable guests and stay on-top of things is a longer task than first thought. When discussing this with the customer, I initially thought about having the users provide us with a CSV file that I could then import into a simple foreach loop and set each guest recursively.
