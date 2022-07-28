@@ -1,6 +1,6 @@
 ---
 layout: article
-title:  "Windows 10 ODJ Devices - Stuck at User ESP"
+title:  "Intune HWID Upload to Azure Storage Account"
 tags: [Autopilot, Intune, Microsoft Azure, PowerShell]
 ---
 

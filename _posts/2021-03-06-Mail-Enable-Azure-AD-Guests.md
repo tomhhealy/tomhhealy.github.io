@@ -4,8 +4,6 @@ title:  "Mail Enable Azure AD Guests"
 tags: [Microsoft Azure, Microsoft Exchange, Microsoft 365, PowerShell, Automation]
 ---
 
-# Mail Enable Azure AD Guests
-
 ## Background
 Mail-enabling a guest is as simple as logging into Exchange Online PowerShell, running a single command and voila, they appear in the GAL and allow you to email them like you would a regular user in the tenant.
 
