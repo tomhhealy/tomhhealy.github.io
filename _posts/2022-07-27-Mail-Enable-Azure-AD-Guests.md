@@ -1,6 +1,7 @@
 ---
-layout: post
+layout: article
 title:  "Mail Enable Azure AD Guests"
+tags: [Microsoft Azure, Microsoft Exchange, PowerShell]
 ---
 
 # Mail Enable Azure AD Guests
@@ -21,13 +22,13 @@ I proceeded to create an Administrative Unit inside of Azure AD to restrict the 
 
 Once this was done, I proceeded to create a group that would be used to mail enable any guests that are added to this AU – for this example I’ve setup a group called “Mail Enabled Guests”.
 
-![Mail Enabled Guests](/_assets/images/Mail-Enabled-Guests-Group.png)
+![Mail Enabled Guests](/assets/images/Mail-Enabled-Guests-Group.png)
 
 I like to try and automate things as much as possible but in this case, my thoughts were that I wanted to try and save as much time . The way I see it is if I have to constantly login to repeat a task over and over again, there has to be a way to automate it (or at least try!) – this is where Azure Automation & Runbooks come into the picture.
 
 I set out by creating an Automation Account – in this example I use “AADGuest-Automation” as the name. From there I entered an administrator username/password that the run-book would run from – for this example only I use my own admin credentials as this is a lab tenant and it doesn’t concern me what account is used to run the script at this point.
 
-![Mail Enabled Guests](/_assets/images/AADGuests-Automation-Account.png)
+![Mail Enabled Guests](/assets/images/AADGuests-Automation-Account.png)
 
 Now, onto the runbook!
 This part is relatively simple as it’s only a few lines of code:
