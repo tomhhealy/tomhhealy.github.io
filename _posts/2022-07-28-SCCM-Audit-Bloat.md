@@ -8,18 +8,21 @@ I stumbled upon an interesting issue that we had to confer with Microsoft on thi
 The SCCM_Audit table inside of the ConfigMgr database, is repeatedly logging entries for the co-management configuration with Microsoft Intune. As you can imagine, this is not ideal and causes a massive bloat in the database. 
 
 ## Setting the scene...
-The environment this was found on and relates to is as follows:
+The environment this was found on:
 - PRIMARY filegroup consists of 4 x 6144 MB files.
 - SCCM is running in a co-management configuration.
 - Laptop builds, software deployment, driver deployment and management is all done via SCCM.
 - SCCM is responsible for the management of 1400-1500 Windows 10 PCs.
 
 ## The issue...
-We were repeatedly receiving alerts from our monitoring platform that the PRIMARY filegroup was full, SCCM was also not allowing us to deploy new applications or driver packages and as such, people were starting to complain.
+We were repeatedly receiving alerts from our monitoring platform that the PRIMARY filegroup was full.  
+SCCM was  not allowing us to deploy new applications or driver packages and as such, people were starting to complain.
 
-I started to dig into it more. I was able to shrink the database files and regain about 100MB in space but this would then be instantly eaten up by the time I got round to shrinking the next file. I started to look at what table was the largest and found that the SCCM_Audit table was almost 2GB in size with no signs of slowing down so adding another .mdf file to the filegroup or expanding the current files in size, was not going to be a resolution.
+I started to dig into it more. I was able to shrink the database files and regain about 100MB in space overall but this would then be instantly eaten up by the time I got round to shrinking the next file. Looking at what table was the largest in the database, it was discovered to be the SCCM_Audit table and it was almost 2GB in size with no signs of slowing down so adding another .mdf file to the filegroup or expanding the current files, would not be a resolution!
 
-Running a simple query and looking at the records, it was clear something wasn't right. The records were duplicate XML entries containing nothing exciting. While I won't post a record here in the event it links to something larger, nearly all entries were created by the Azure_Service.
+Running a simple query and looking at the records, it was clear something wasn't right.  
+The records were duplicate XML entries containing nothing exciting.  
+While I won't post a record here in the event it links to something larger, nearly all entries were created by the Azure_Service.
 
 ## The resolution...
 
