@@ -1,10 +1,10 @@
 ---
 layout: article
-title:  "Email Address Policies & Decomissioning Hybrid Exchange"
+title:  "Decomission Hybrid Exchange & Email Address Policies"
 tags: [PowerShell, Microsoft Exchange, Hybrid Exchange]
 ---
 
-Working on a project to decomission Hybrid Exchange this week, I have quickly found that certain functionality is simply not present in Excahnge Online. Before I start this post, note that Microsoft do not recommend that you *uninstall* the last server from your environment due to the Exchange attributes being removed from the Active Directory schema. For those that are interested in removing Hybrid Exchange, check this [MS docs article](https://docs.microsoft.com/en-us/exchange/decommission-on-premises-exchange) out.
+Working on a project to decomission Hybrid Exchange this week, I have quickly found that certain functionality is simply not present in Exchange Online. Before I start this post, note that Microsoft do not recommend that you *uninstall* the last server from your environment due to the Exchange attributes being removed from the Active Directory schema. For those that are interested in removing Hybrid Exchange, check this [MS docs article](https://docs.microsoft.com/en-us/exchange/decommission-on-premises-exchange) out.
 
 The functionality that was important to us are the onpremise email address policies for both contractors and our vendors that have accounts inside our tenant. Contractors are identified with an "X-" prefix on the email address and vendors, "V-" is added.
 
